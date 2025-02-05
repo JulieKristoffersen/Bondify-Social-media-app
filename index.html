@@ -1,127 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Responsive Navbar with Tailwind CSS</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/script.js" defer></script>
-  </head>
-  <body class="bg-gray-100 min-h-screen grid grid-rows-[auto_1fr_auto]">
-    <header class="bg-white shadow-lg">
-      <nav class="container mx-auto">
-        <div class="flex justify-between">
-          <a href="/" class="flex items-center py-4 px-2">
-            <span class="text-lg font-bold text-gray-500">Logo</span>
-          </a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome</h1>
+        <form action="profile/index.html" method="GET" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
 
-          <div class="hidden md:flex items-center space-x-1">
-            <a
-              href="#"
-              class="py-4 px-2 text-green-500 font-semibold border-b-4 border-green-500"
-              >Home</a
-            >
-            <a
-              href="#"
-              class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
-              >Services</a
-            >
-            <a
-              href="#"
-              class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
-              >About</a
-            >
-            <a
-              href="#"
-              class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
-              >Contact Us</a
-            >
-          </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" minlength="8" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
 
-          <div class="hidden md:flex items-center space-x-3">
-            <a
-              href="#"
-              class="py-4 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300"
-              >Log In</a
-            >
-            <a
-              href="#"
-              class="py-4 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300"
-              >Sign Up</a
-            >
-          </div>
+            <div>
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Login
+                </button>
+            </div>
 
-          <div class="flex md:hidden items-center">
-            <button class="" id="menu-btn">
-              <svg
-                class="w-6 h-6 text-gray-500 hover:text-green-500"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="hidden" id="mobile-menu">
-          <ul class="">
-            <li>
-              <a
-                href="index.html"
-                class="block text-sm py-4 px-2 bg-green-500 text-white font-semibold"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="#services"
-                class="block text-sm py-4 px-2 hover:bg-green-500 hover:text-white transition duration-300"
-                >Services</a
-              >
-            </li>
-            <li>
-              <a
-                href="#about"
-                class="block text-sm py-4 px-2 hover:bg-green-500 hover:text-white transition duration-300"
-                >About</a
-              >
-            </li>
-            <li>
-              <a
-                href="#contact"
-                class="block text-sm py-4 px-2 hover:bg-green-500 hover:text-white transition duration-300"
-                >Contact Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="#login"
-                class="block text-sm py-4 px-2 hover:bg-green-500 hover:text-white transition duration-300"
-                >Log In</a
-              >
-            </li>
-            <li>
-              <a
-                href="#register"
-                class="block text-sm py-4 px-2 hover:bg-green-500 hover:text-white transition duration-300"
-                >Sign Up</a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <main class="container mx-auto my-7">
-        <h1 class="text-3xl font-bold text-red-600">Heading</h1>
-        <p class="text-gray-500">Content</p>
-    </main>
-    <footer class="bg-white py-5">
-        <p class="container mx-auto text-center">copyrigt</p>
-    </footer>
-  </body>
+            <p class="text-center text-sm text-gray-600">
+                Don’t have an account? 
+                <a href="/register" class="text-indigo-600 hover:underline">Register here</a>.
+            </p>
+        </form>
+    </div>
+</body>
 </html>
