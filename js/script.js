@@ -7,4 +7,3 @@ menuBtn.addEventListener("click", function () {
     mobileMenu.classList.toggle("hidden");
     mobileMenu.setAttribute("aria-hidden", isExpanded ? "true" : "false");
 });
-
