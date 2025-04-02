@@ -1,5 +1,9 @@
 # Bondify
 
+## Project Management  
+This project is managed using GitHub Projects. You can view the task board here:  
+👉 [JS2 Social Media app](https://github.com/users/JulieKristoffersen/projects/1)
+
 ## User Stories
 
 - User can register
