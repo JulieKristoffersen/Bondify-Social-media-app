@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication</title>
+    <title>Log in | Bondify</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -24,8 +24,8 @@
                 ☰
             </button>
             <ul class="hidden md:flex space-x-6">
-                <li><a href="/feed" class="text-white nav-link hover:text-teal-300">Feed</a></li>
-                <li><a href="/profile" class="text-white nav-link hover:text-teal-300">Profile</a></li>
+                <li><a href="/feed" class="text-white md:hover:text-teal-300 md:hover:underline">Feed</a></li>
+                <li><a href="/profile" class="text-white md:hover:text-teal-300 md:hover:underline">Profile</a></li>
             </ul>
         </nav>
         <div id="mobile-menu" class="hidden md:hidden bg-gray-100 py-3 space-y-2 text-center transition-all duration-300" 
@@ -35,7 +35,7 @@
         </div>
     </header>
 
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mt-10">
+    <main class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mt-10">
         <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome Back!</h1>
         <form action="profile/index.html" method="GET" class="space-y-6">
             <div>
@@ -64,7 +64,7 @@
                 <a href="/register" class="text-teal-600 hover:underline">Register here</a>.
             </p>
         </form>
-    </div>
+    </main>
 
     <footer class="w-full bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 py-4 text-center text-white mt-auto">
         <p>© 2025 Bondify. All rights reserved.</p>
