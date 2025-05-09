@@ -1,11 +1,9 @@
-// API base endpoints
 export const API_BASE = "https://v2.api.noroff.dev";
 export const API_AUTH = "/auth";
 export const API_REGISTER = "/register";
 export const API_LOGIN = "/login";
 export const API_KEY_URL = "/create-api-key";
 
-// LocalStorage utilities
 export function save(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
@@ -14,7 +12,6 @@ export function load(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
-// Fetch posts (requires login + API key)
 export async function getPosts() {
     const token = load("token");
     const apiKey = load("apiKey");
@@ -37,7 +34,6 @@ export async function getPosts() {
     return await response.json();
 }
 
-// Get or create API key (after login)
 export async function getAPIKey() {
     const existingKey = load("apiKey");
     if (existingKey) return existingKey;
@@ -63,7 +59,6 @@ export async function getAPIKey() {
     throw new Error("Could not register for an API key!");
 }
 
-// Register user (with optional fields)
 export async function register(name, email, password, bio = "", avatarUrl = "", avatarAlt = "", bannerUrl = "", bannerAlt = "", venueManager = false) {
     const payload = {
         name,
@@ -92,7 +87,6 @@ export async function register(name, email, password, bio = "", avatarUrl = "", 
     throw new Error("Could not register the account");
 }
 
-// Login user (with optional holidaze param)
 export async function login(email, password) {
     const response = await fetch(`${API_BASE + API_AUTH + API_LOGIN}?_holidaze=true`, {
         headers: {
@@ -116,7 +110,6 @@ export async function login(email, password) {
     throw new Error("Could not login to the account");
 }
 
-// Auth handler (used by form)
 export async function onAuth(event) {
     event.preventDefault();
 
@@ -139,7 +132,6 @@ export async function onAuth(event) {
             await login(email, password);
         }
 
-        // Success – redirect
         const posts = await getPosts();
         console.log("Posts after login:", posts);
         window.location.href = "/profile";
@@ -149,12 +141,20 @@ export async function onAuth(event) {
     }
 }
 
-// Attach listener to login/register form
 export function setAuthListener() {
-    const form = document.getElementById("loginForm");
-    if (form) {
-        form.addEventListener("submit", onAuth);
-    } else {
-        console.error('Login form with id "loginForm" not found.');
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", onAuth);
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener("submit", onAuth);
+    }
+
+    if (!loginForm && !registerForm) {
+        console.error('No login or register form found.');
     }
 }
+setAuthListener();
