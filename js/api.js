@@ -59,7 +59,17 @@ export async function getAPIKey() {
     throw new Error("Could not register for an API key!");
 }
 
-export async function register(name, email, password, bio = "", avatarUrl = "", avatarAlt = "", bannerUrl = "", bannerAlt = "", venueManager = false) {
+export async function register(
+    name,
+    email,
+    password,
+    bio = "",
+    avatarUrl = "",
+    avatarAlt = "",
+    bannerUrl = "",
+    bannerAlt = "",
+    venueManager = false
+) {
     const payload = { name, email, password };
 
     if (bio) payload.bio = bio;
@@ -86,24 +96,6 @@ export async function register(name, email, password, bio = "", avatarUrl = "", 
         throw new Error("This email is already registered. Please log in.");
     }
 
-    throw new Error("Could not register the account: " + (error.errors?.[0]?.message || "Unknown error"));
-}
-
-
-    const response = await fetch(API_BASE + API_AUTH + API_REGISTER, {
-        headers: {
-            "Content-Type": "application/json"
-        },
-        method: "POST",
-        body: JSON.stringify(payload)
-    });
-
-    if (response.ok) {
-        return await response.json();
-    }
-
-    const error = await response.json();
-    console.error("Registration error:", error);
     throw new Error("Could not register the account: " + (error.errors?.[0]?.message || "Unknown error"));
 }
 

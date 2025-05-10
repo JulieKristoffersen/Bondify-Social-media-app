@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feed</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module" src="../js/index.js"></script>
+  <script type="module" src="../js/feed.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 
-<body class="bg-gray-50 flex flex-col items-center min-h-screen">
+<body class="bg-gray-50 min-h-screen flex flex-col items-center">
   <header class="bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 w-full shadow-md">
     <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
       <a href="../profile/index.html" class="flex items-center">
@@ -19,64 +19,19 @@
             font-family="Verdana, sans-serif">Bondify</text>
         </svg>
       </a>
-      <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none" aria-label="Open menu"
-        aria-expanded="false" aria-controls="mobile-menu">☰</button>
       <ul class="hidden md:flex space-x-6">
-        <li><a href="../feed/index.html" class="text-white nav-link hover:text-teal-300">Feed</a></li>
-        <li><a href="../profile/index.html" class="text-white nav-link hover:text-teal-300">Profile</a></li>
+        <li><a href="index.html" class="text-white hover:text-teal-300">Feed</a></li>
+        <li><a href="../profile/index.html" class="text-white hover:text-teal-300">Profile</a></li>
       </ul>
     </nav>
-    <div id="mobile-menu"
-      class="hidden md:hidden bg-gray-100 py-3 space-y-2 text-center transition-all duration-300"
-      aria-hidden="true">
-      <a href="../feed/index.html" class="block py-2 text-gray-700 hover:text-teal-500">Feed</a>
-      <a href="../profile/index.html" class="block py-2 text-gray-700 hover:text-teal-500">Profile</a>
-    </div>
   </header>
 
-  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mt-10">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Create Account</h1>
-    <form id="loginForm" class="space-y-6">
-      <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Username</label>
-        <input type="text" id="name" name="name" required pattern="^[a-zA-Z0-9_]+$"
-          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
-          aria-labelledby="name-label">
-      </div>
+  <main class="w-full max-w-4xl p-6" id="post-container">
 
-      <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" id="email" name="email" required
-          pattern="^[a-zA-Z0-9._%+-]+@stud\.noroff\.no$"
-          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
-          aria-labelledby="email-label">
-      </div>
-
-      <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-        <input type="password" id="password" name="password" minlength="8" required
-          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
-          aria-labelledby="password-label">
-      </div>
-
-      <div>
-        <button type="submit"
-          class="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition duration-300">
-          Register
-        </button>
-      </div>
-
-      <p class="text-center text-sm text-gray-600">
-        Already have an account?
-        <a href="../index.html" class="text-teal-600 hover:underline">Login here</a>.
-      </p>
-    </form>
-  </div>
+  </main>
 
   <footer class="w-full bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 py-4 text-center text-white mt-auto">
     <p>© 2025 Bondify. All rights reserved.</p>
   </footer>
 </body>
-
 </html>
-

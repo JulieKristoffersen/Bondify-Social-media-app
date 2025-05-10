@@ -1,4 +1,4 @@
-import { login, register, getPosts } from './api.js';
+import { login, register } from './api.js';
 
 export async function onAuth(event) {
     event.preventDefault();
@@ -16,6 +16,14 @@ export async function onAuth(event) {
     const bannerAlt = form.bannerAlt?.value || "";
     const venueManager = form.venueManager?.checked || false;
 
+    const submitButton = form.querySelector("button[type='submit']");
+    const originalText = submitButton.textContent;
+    const errorMsg = document.getElementById("errorMsg");
+
+    if (errorMsg) errorMsg.textContent = "";
+    submitButton.disabled = true;
+    submitButton.textContent = "Please wait...";
+
     try {
         if (isLogin) {
             await login(email, password);
@@ -24,12 +32,17 @@ export async function onAuth(event) {
             await login(email, password);
         }
 
-        const posts = await getPosts();
-        console.log("Posts after login:", posts);
         window.location.href = "/profile";
     } catch (error) {
         console.error("Authentication failed:", error.message);
-        alert(error.message);
+        if (errorMsg) {
+            errorMsg.textContent = error.message;
+        } else {
+            alert(error.message);
+        }
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
     }
 }
 
@@ -38,14 +51,26 @@ export function setAuthListener() {
     const registerForm = document.getElementById("registerForm");
 
     if (loginForm) {
+        loginForm.insertAdjacentHTML("beforeend", `<p id="errorMsg" class="text-red-500 text-sm text-center mt-2"></p>`);
         loginForm.addEventListener("submit", onAuth);
+    } else {
+        console.error('Login form not found');
     }
 
     if (registerForm) {
+        registerForm.insertAdjacentHTML("beforeend", `<p id="errorMsg" class="text-red-500 text-sm text-center mt-2"></p>`);
         registerForm.addEventListener("submit", onAuth);
+    } else {
+        console.error('Register form not found');
     }
 
+    // Optional logging if neither form is found
     if (!loginForm && !registerForm) {
         console.error('No login or register form found.');
     }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    setAuthListener();
+});
+

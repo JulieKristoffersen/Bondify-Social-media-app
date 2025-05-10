@@ -4,53 +4,43 @@ const POSTS_ENDPOINT = "/social/posts?_author=true&_comments=true&_reactions=tru
 const API_KEY = localStorage.getItem("apiKey");
 const TOKEN = localStorage.getItem("token");
 
-/**
- * Fetch and display all posts
- */
 async function getPosts() {
-    const postContainer = document.getElementById("post-container");
-    postContainer.innerHTML = "<p>Loading posts...</p>";
+  const postContainer = document.getElementById("post-container");
+  postContainer.innerHTML = "<p>Loading posts...</p>";
 
-    try {
-        const response = await fetch(`${API_BASE}${POSTS_ENDPOINT}`, {
-            headers: {
-                Authorization: `Bearer ${TOKEN}`,
-                "X-Noroff-API-Key": API_KEY,
-            }
-        });
+  try {
+    const response = await fetch(`${API_BASE}${POSTS_ENDPOINT}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    });
 
-        const result = await response.json();
+    const result = await response.json();
 
-        if (response.ok) {
-            postContainer.innerHTML = "";
-            result.data.forEach(post => {
-                postContainer.innerHTML += `
-                    <div class="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
-                        <img src="${post.media || '../images/feed1.JPG'}" alt="Post Image" class="w-full h-40 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800">${post.title}</h3>
-                            <p class="text-gray-600 text-sm mt-1">${post.body}</p>
-                            <div class="mt-4 flex justify-between items-center text-gray-500 text-sm">
-                                <div class="flex items-center">
-                                    <i class="fas fa-heart text-red-500"></i>
-                                    <span class="ml-2">${post._count.reactions}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-comment-dots"></i>
-                                    <span class="ml-2">${post._count.comments}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        } else {
-            postContainer.innerHTML = "<p>Failed to load posts.</p>";
-        }
-    } catch (error) {
-        console.error("Error loading posts:", error);
-        postContainer.innerHTML = "<p>Error loading posts.</p>";
+    if (response.ok) {
+      postContainer.innerHTML = "";
+      result.data.forEach(post => {
+        postContainer.innerHTML += `
+          <div class="bg-white border rounded-lg shadow p-4 mb-6">
+            <img src="${post.media?.url ?? '../images/feed1.JPG'}" alt="${post.media?.alt ?? 'Post image'}" class="w-full h-60 object-cover rounded mb-4">
+            <h2 class="text-xl font-bold text-gray-800">${post.title}</h2>
+            <p class="text-gray-600 mt-2">${post.body ?? ""}</p>
+            <p class="text-sm text-gray-500 mt-2">By ${post.author?.name ?? "Unknown"}</p>
+            <div class="mt-3 flex space-x-4 text-sm text-gray-500">
+              <span><i class="fas fa-heart text-red-500"></i> ${post._count.reactions ?? 0}</span>
+              <span><i class="fas fa-comment"></i> ${post._count.comments ?? 0}</span>
+            </div>
+          </div>
+        `;
+      });
+    } else {
+      postContainer.innerHTML = "<p>Failed to load posts.</p>";
     }
+  } catch (error) {
+    console.error("Error loading posts:", error);
+    postContainer.innerHTML = "<p>Error loading posts.</p>";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", getPosts);
