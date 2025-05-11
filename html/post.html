@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Details | Bondify</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="../js/post.js"></script>
+</head>
+
+<body class="bg-gray-50 flex flex-col min-h-screen items-center">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 w-full shadow-md">
+    <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="/profile" class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="w-16 h-16">
+          <path d="M10,60 A50,50 0 1,1 110,60" fill="#00bcd4" />
+          <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="20" font-weight="bold" fill="white"
+            font-family="Verdana, sans-serif">Bondify</text>
+        </svg>
+      </a>
+      <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none"
+        aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+      <ul class="hidden md:flex space-x-6">
+        <li><a href="/feed" class="text-white nav-link hover:text-teal-300">Feed</a></li>
+        <li><a href="/profile" class="text-white nav-link hover:text-teal-300">Profile</a></li>
+      </ul>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-100 py-3 space-y-2 text-center transition-all duration-300"
+      aria-hidden="true">
+      <a href="/feed" class="block py-2 text-gray-700 hover:text-teal-500">Feed</a>
+      <a href="/profile" class="block py-2 text-gray-700 hover:text-teal-500">Profile</a>
+    </div>
+  </header>
+
+  <main class="w-full max-w-3xl p-6 mt-8 bg-white rounded-lg shadow-md" id="post-details">
+    <p class="text-center text-gray-500">Laster inn...</p>
+  </main>
+
+  <footer class="w-full bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 py-4 text-center text-white mt-auto">
+    <p>© 2025 Bondify. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
