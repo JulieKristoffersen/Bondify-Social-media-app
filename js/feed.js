@@ -10,7 +10,6 @@ if (!TOKEN || !API_KEY) {
 async function fetchPosts() {
   try {
     const response = await fetch(API_URL, {
-      method: "GET",
       headers: {
         Authorization: `Bearer ${TOKEN}`,
         "X-Noroff-API-Key": API_KEY,
@@ -31,7 +30,7 @@ async function fetchPosts() {
 }
 
 function renderPosts(posts) {
-  postContainer.innerHTML = ""; 
+  postContainer.innerHTML = "";
 
   if (posts.length === 0) {
     postContainer.innerHTML = `<p class="text-center text-gray-500">Ingen innlegg funnet.</p>`;

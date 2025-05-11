@@ -25,14 +25,20 @@ export async function onAuth(event) {
     submitButton.textContent = "Please wait...";
 
     try {
+        let loginData;
+
         if (isLogin) {
-            await login(email, password);
+            loginData = await login(email, password);
         } else {
             await register(name, email, password, bio, avatarUrl, avatarAlt, bannerUrl, bannerAlt, venueManager);
-            await login(email, password);
+            loginData = await login(email, password);
         }
 
-        window.location.href = "/profile";
+        localStorage.setItem("token", loginData.data.accessToken);
+        localStorage.setItem("apiKey", loginData.data.apiKey);
+        localStorage.setItem("userName", loginData.data.name);
+
+        window.location.href = "../feed/index.html"; 
     } catch (error) {
         console.error("Authentication failed:", error.message);
         if (errorMsg) {
@@ -53,24 +59,16 @@ export function setAuthListener() {
     if (loginForm) {
         loginForm.insertAdjacentHTML("beforeend", `<p id="errorMsg" class="text-red-500 text-sm text-center mt-2"></p>`);
         loginForm.addEventListener("submit", onAuth);
-    } else {
-        console.error('Login form not found');
     }
 
     if (registerForm) {
         registerForm.insertAdjacentHTML("beforeend", `<p id="errorMsg" class="text-red-500 text-sm text-center mt-2"></p>`);
         registerForm.addEventListener("submit", onAuth);
-    } else {
-        console.error('Register form not found');
     }
 
-    // Optional logging if neither form is found
     if (!loginForm && !registerForm) {
         console.error('No login or register form found.');
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    setAuthListener();
-});
-
+document.addEventListener("DOMContentLoaded", setAuthListener);

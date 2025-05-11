@@ -114,7 +114,9 @@ export async function login(email, password) {
         save("profile", profile);
 
         const apiKey = await getAPIKey();
-        return profile;
+        save("apiKey", apiKey);
+
+        return { accessToken, apiKey, profile };
     }
 
     const error = await response.json();
