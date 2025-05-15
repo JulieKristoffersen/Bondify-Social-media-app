@@ -6,6 +6,7 @@
   <title>Feed - Bondify</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="../js/feed.js"></script>
+  <script type="module" src="../js/script.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 
@@ -19,15 +20,21 @@
             font-family="Verdana, sans-serif">Bondify</text>
         </svg>
       </a>
+      <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none"
+              aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
       <ul class="hidden md:flex space-x-6">
-        <li><a href="index.html" class="text-white hover:text-teal-300">Feed</a></li>
-        <li><a href="../profile/index.html" class="text-white hover:text-teal-300">Profile</a></li>
+        <li><a href="../feed/index.html" class="text-white nav-link hover:text-teal-300">Feed</a></li>
+        <li><a href="../profile/index.html" class="text-white nav-link hover:text-teal-300">Profile</a></li>
       </ul>
     </nav>
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-100 py-3 space-y-2 text-center transition-all duration-300"
+         aria-hidden="true">
+      <a href="../feed/index.html" class="block py-2 text-gray-700 hover:text-teal-500">Feed</a>
+      <a href="../profile/index.html" class="block py-2 text-gray-700 hover:text-teal-500">Profile</a>
+    </div>
   </header>
 
   <main class="w-full max-w-4xl p-6" id="post-container">
-
   </main>
 
   <footer class="w-full bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 py-4 text-center text-white mt-auto">

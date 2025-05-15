@@ -5,9 +5,9 @@ export async function onAuth(event) {
 
     const form = event.target;
     const isLogin = event.submitter.dataset.auth === "login";
-    const email = form.email.value;
+    const email = form.email.value.trim();
     const password = form.password.value;
-    const name = !isLogin ? form.name?.value : "";
+    const name = !isLogin ? form.name?.value.trim() : "";
 
     const bio = form.bio?.value || "";
     const avatarUrl = form.avatarUrl?.value || "";
@@ -25,6 +25,10 @@ export async function onAuth(event) {
     submitButton.textContent = "Please wait...";
 
     try {
+        if (!email.endsWith("@noroff.no") && !email.endsWith("@stud.noroff.no")) {
+            throw new Error("Only @noroff.no or @stud.noroff.no emails are allowed.");
+        }
+
         let loginData;
 
         if (isLogin) {
@@ -34,11 +38,11 @@ export async function onAuth(event) {
             loginData = await login(email, password);
         }
 
-        localStorage.setItem("token", loginData.data.accessToken);
-        localStorage.setItem("apiKey", loginData.data.apiKey);
-        localStorage.setItem("userName", loginData.data.name);
+        localStorage.setItem("token", loginData.accessToken);
+        localStorage.setItem("apiKey", loginData.apiKey);
+        localStorage.setItem("userName", loginData.profile.name);
 
-        window.location.href = "../feed/index.html"; 
+        window.location.href = "../feed/index.html";
     } catch (error) {
         console.error("Authentication failed:", error.message);
         if (errorMsg) {
@@ -67,7 +71,7 @@ export function setAuthListener() {
     }
 
     if (!loginForm && !registerForm) {
-        console.error('No login or register form found.');
+        console.error("No login or register form found.");
     }
 }
 
