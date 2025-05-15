@@ -1,15 +1,27 @@
-const API_URL = "https://v2.api.noroff.dev/social/posts?_author=true&_comments=true&_reactions=true";
+const API_BASE_URL = "https://v2.api.noroff.dev/social/posts";
 const TOKEN = localStorage.getItem("token");
 const API_KEY = localStorage.getItem("apiKey");
 const postContainer = document.getElementById("post-container");
+const searchInput = document.getElementById("search-input"); 
+const filterSelect = document.getElementById("filter-select"); 
 
 if (!TOKEN || !API_KEY) {
   window.location.href = "../index.html";
 }
 
-async function fetchPosts() {
+async function fetchPosts({ tag = null, query = null } = {}) {
+  postContainer.innerHTML = `<p class="text-center text-gray-500">Laster innlegg...</p>`;
+  
+  let url = `${API_BASE_URL}?_author=true&_comments=true&_reactions=true`;
+
+  if (tag) {
+    url = `${API_BASE_URL}?_tag=${encodeURIComponent(tag)}&_author=true&_comments=true&_reactions=true`;
+  } else if (query) {
+    url = `${API_BASE_URL}/search?q=${encodeURIComponent(query)}`;
+  }
+
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
         "X-Noroff-API-Key": API_KEY,
@@ -32,7 +44,7 @@ async function fetchPosts() {
 function renderPosts(posts) {
   postContainer.innerHTML = "";
 
-  if (posts.length === 0) {
+  if (!posts || posts.length === 0) {
     postContainer.innerHTML = `<p class="text-center text-gray-500">Ingen innlegg funnet.</p>`;
     return;
   }
@@ -63,6 +75,28 @@ function renderPosts(posts) {
     `;
 
     postContainer.appendChild(postDiv);
+  });
+}
+
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.trim();
+    if (query.length > 2) {
+      fetchPosts({ query });
+    } else if (query.length === 0) {
+      fetchPosts();
+    }
+  });
+}
+
+if (filterSelect) {
+  filterSelect.addEventListener("change", (e) => {
+    const tag = e.target.value;
+    if (tag) {
+      fetchPosts({ tag });
+    } else {
+      fetchPosts();
+    }
   });
 }
 

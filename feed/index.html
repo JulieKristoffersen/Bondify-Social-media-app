@@ -34,7 +34,26 @@
     </div>
   </header>
 
-  <main class="w-full max-w-4xl p-6" id="post-container">
+  <main class="w-full max-w-4xl p-6">
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Søk i innlegg..."
+      class="border border-gray-300 rounded p-3 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+    />
+
+    <select
+      id="filter-select"
+      class="border border-gray-300 rounded p-3 w-full max-w-xs mb-8 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+    >
+      <option value="">Filter</option>
+      <option value="nature">Nature</option>
+      <option value="travel">Travel</option>
+      <option value="food">Food</option>
+      <option value="technology">Technology</option>
+    </select>
+
+    <div id="post-container"></div>
   </main>
 
   <footer class="w-full bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 py-4 text-center text-white mt-auto">
