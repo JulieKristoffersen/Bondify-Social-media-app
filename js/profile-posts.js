@@ -9,11 +9,12 @@ const mediaInput = document.getElementById("post-media");
 const userPostsContainer = document.getElementById("user-posts");
 const formTitle = document.getElementById("form-title");
 const cancelBtn = document.getElementById("cancel-edit");
+const showPostFormBtn = document.getElementById("show-post-form-btn");
 
 let editingPostId = null;
 
 async function fetchUserPosts() {
-  userPostsContainer.innerHTML = "Laster innlegg...";
+  userPostsContainer.innerHTML = "Loading posts...";
 
   try {
     const res = await fetch(API_BASE, {
@@ -23,10 +24,9 @@ async function fetchUserPosts() {
       }
     });
 
-    if (!res.ok) throw new Error("Feil ved henting av innlegg");
+    if (!res.ok) throw new Error("Error fetching posts");
 
     const data = await res.json();
-
     renderPosts(data.data);
   } catch (error) {
     userPostsContainer.innerHTML = `<p style="color:red">${error.message}</p>`;
@@ -35,17 +35,28 @@ async function fetchUserPosts() {
 
 function renderPosts(posts) {
   if (posts.length === 0) {
-    userPostsContainer.innerHTML = "<p>Ingen innlegg funnet.</p>";
+    userPostsContainer.innerHTML = "<p>No posts found.</p>";
     return;
   }
 
   userPostsContainer.innerHTML = posts.map(post => `
-    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-      <h4>${post.title}</h4>
-      <p>${post.body}</p>
-      <img src="${post.media?.url || ''}" alt="" style="max-width:100%; max-height:150px; display:block; margin-bottom:10px;">
-      <button onclick="editPost('${post.id}')">Rediger</button>
-      <button onclick="deletePost('${post.id}')">Slett</button>
+    <div class="border rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
+      <img src="${post.media?.url || '../images/default.jpg'}" alt="Post image"
+        class="w-full h-40 object-cover transition-all transform hover:scale-105" />
+      <div class="p-4">
+        <h4 class="font-semibold text-lg">${post.title}</h4>
+        <p class="text-gray-600 text-sm mt-1">${post.body || ''}</p>
+        <div class="mt-4 flex justify-between items-center text-gray-500 text-sm">
+          <div class="flex items-center space-x-2">
+            <button onclick="editPost('${post.id}')" class="text-gray-600 hover:text-gray-800 text-sm">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button onclick="deletePost('${post.id}')" class="text-red-600 hover:text-red-800 text-sm">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   `).join('');
 }
@@ -58,23 +69,25 @@ async function editPost(id) {
         "X-Noroff-API-Key": apiKey
       }
     });
-    if (!res.ok) throw new Error("Kunne ikke hente innlegget");
+    if (!res.ok) throw new Error("Could not fetch the post");
 
-    const post = await res.json();
+    const data = await res.json();
+    const post = data.data;
 
     editingPostId = id;
-    formTitle.textContent = "Rediger innlegg";
+    formTitle.textContent = "Edit Post";
     titleInput.value = post.title;
-    bodyInput.value = post.body;
+    bodyInput.value = post.body || "";
     mediaInput.value = post.media?.url || "";
     cancelBtn.style.display = "inline-block";
+    form.style.display = "block";
   } catch (error) {
     alert(error.message);
   }
 }
 
 async function deletePost(id) {
-  if (!confirm("Er du sikker på at du vil slette innlegget?")) return;
+  if (!confirm("Are you sure you want to delete this post?")) return;
 
   try {
     const res = await fetch(`${API_BASE}/${id}`, {
@@ -85,7 +98,7 @@ async function deletePost(id) {
       }
     });
 
-    if (!res.ok) throw new Error("Kunne ikke slette innlegget");
+    if (!res.ok) throw new Error("Could not delete the post");
 
     fetchUserPosts();
   } catch (error) {
@@ -95,18 +108,28 @@ async function deletePost(id) {
 
 cancelBtn.onclick = () => {
   editingPostId = null;
-  formTitle.textContent = "Lag nytt innlegg";
+  formTitle.textContent = "Create New Post";
   form.reset();
   cancelBtn.style.display = "none";
+  form.style.display = "none";
 };
 
 form.onsubmit = async (e) => {
   e.preventDefault();
 
+  const title = titleInput.value.trim();
+  const body = bodyInput.value.trim();
+  const mediaUrl = mediaInput.value.trim();
+
+  if (!title) {
+    alert("Title cannot be empty.");
+    return;
+  }
+
   const postData = {
-    title: titleInput.value.trim(),
-    body: bodyInput.value.trim(),
-    media: mediaInput.value.trim() ? { url: mediaInput.value.trim(), alt: "Bilde" } : null
+    title,
+    body: body || undefined, 
+    media: mediaUrl ? { url: mediaUrl, alt: "Image" } : undefined
   };
 
   try {
@@ -135,19 +158,23 @@ form.onsubmit = async (e) => {
 
     if (!res.ok) {
       const err = await res.json();
-      throw new Error(err.errors?.[0] || "Noe gikk galt");
+      throw new Error(err.errors?.[0]?.message || "Something went wrong");
     }
 
     editingPostId = null;
-    formTitle.textContent = "Lag nytt innlegg";
+    formTitle.textContent = "Create New Post";
     form.reset();
     cancelBtn.style.display = "none";
+    form.style.display = "none";
     fetchUserPosts();
-
   } catch (error) {
     alert(error.message);
   }
 };
+
+showPostFormBtn?.addEventListener("click", () => {
+  form.style.display = form.style.display === "none" ? "block" : "none";
+});
 
 fetchUserPosts();
 

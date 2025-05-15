@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile - Bondify</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="../js/profile-posts.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 </head>
 
@@ -38,7 +39,7 @@
   </header>
 
   <div class="min-h-screen flex justify-center p-4">
-    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 relative">
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 relative w-full">
       <a href="/index.html"
         class="absolute top-4 right-4 bg-gray-200 text-gray-800 py-2 px-4 text-sm rounded-full hover:bg-gray-300 transition-all transform hover:scale-105">
         Logout
@@ -46,18 +47,18 @@
 
       <button id="show-post-form-btn"
         class="mt-4 mb-4 bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded">
-        + Nytt innlegg
+        + Add a new post
       </button>
 
       <form id="post-form" style="display: none;" class="mb-6">
-        <h3 id="form-title" class="text-xl font-semibold mb-2">Lag nytt innlegg</h3>
-        <input type="text" id="post-title" placeholder="Tittel" required class="border p-2 w-full mb-2" />
-        <textarea id="post-body" placeholder="Innhold" required class="border p-2 w-full mb-2"></textarea>
-        <input type="url" id="post-media" placeholder="Bilde-URL (valgfritt)" class="border p-2 w-full mb-2" />
+        <h3 id="form-title" class="text-xl font-semibold mb-2">Add a new post</h3>
+        <input type="text" id="post-title" placeholder="Title" required class="border p-2 w-full mb-2" />
+        <textarea id="post-body" placeholder="Text" required class="border p-2 w-full mb-2"></textarea>
+        <input type="url" id="post-media" placeholder="Picture-URL (optional)" class="border p-2 w-full mb-2" />
         <div class="flex space-x-2">
-          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Lagre innlegg</button>
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save post</button>
           <button type="button" id="cancel-edit"
-            class="bg-gray-300 text-gray-800 px-4 py-2 rounded hidden">Avbryt redigering</button>
+            class="bg-gray-300 text-gray-800 px-4 py-2 rounded hidden">Cancel</button>
         </div>
       </form>
 
@@ -89,39 +90,9 @@
           </div>
         </div>
       </div>
-
-      <div class="mt-6">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Latest Posts</h3>
-        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <div
-            class="border rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 hover:rotate-3">
-            <img src="../images/profile_feed1.jpeg" alt="Post Thumbnail"
-              class="w-full h-40 object-cover transition-all transform hover:scale-105" />
-            <div class="p-4">
-              <h4 class="font-semibold text-lg">Hiking Trip</h4>
-              <p class="text-gray-600 text-sm mt-1">Wonderful place.</p>
-              <div class="mt-4 flex justify-between items-center text-gray-500 text-sm">
-                <div class="flex items-center">
-                  <button class="text-red-500 hover:text-red-600">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                  <span class="ml-2">125</span>
-                </div>
-                <div class="flex items-center">
-                  <button class="text-gray-500 hover:text-gray-600">
-                    <i class="fas fa-comment-dots"></i>
-                  </button>
-                  <span class="ml-2">32</span>
-                </div>
-              </div>
-              <div class="mt-2 flex justify-end">
-                <button class="text-gray-600 hover:text-gray-800 text-sm">
-                  <i class="fas fa-edit"></i> Rediger
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="mt-6 w-full">
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Dine innlegg</h3>
+        <div id="user-posts" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></div>
       </div>
     </div>
   </div>
@@ -130,6 +101,7 @@
     <p>© 2025 Bondify. All rights reserved.</p>
   </footer>
 
+  <script src="js/post.js" defer></script>
 </body>
 
 </html>
