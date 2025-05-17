@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,44 +10,32 @@
 </head>
 
 <body class="bg-gray-50 flex flex-col items-center min-h-screen">
+
   <header class="bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 w-full shadow-md">
     <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
       <a href="/profile" class="flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="w-16 h-16">
           <path d="M10,60 A50,50 0 1,1 110,60" fill="#00bcd4" />
-          <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="20" font-weight="bold" fill="white"
-            font-family="Verdana, sans-serif">
-            Bondify
-          </text>
+          <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="20" font-weight="bold" fill="white" font-family="Verdana, sans-serif">Bondify</text>
         </svg>
       </a>
-      <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none menu-btn" aria-label="Open menu"
-        aria-expanded="false" aria-controls="mobile-menu">
-        ☰
-      </button>
+      <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
       <ul class="hidden md:flex space-x-6">
         <li><a href="/feed" class="text-white nav-link">Feed</a></li>
         <li><a href="/profile" class="text-white nav-link">Profile</a></li>
       </ul>
     </nav>
-    <div id="mobile-menu" class="hidden md:hidden bg-gray-100 py-3 space-y-2 text-center transition-all duration-300"
-      aria-hidden="true">
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-100 py-3 space-y-2 text-center transition-all duration-300" aria-hidden="true">
       <a href="/feed" class="block py-2 text-gray-700 hover:text-teal-500">Feed</a>
       <a href="/profile" class="block py-2 text-gray-700 hover:text-teal-500">Profile</a>
     </div>
   </header>
 
-  <div class="min-h-screen flex justify-center p-4">
+  <main class="min-h-screen flex justify-center p-4 w-full">
     <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 relative w-full">
-      <a href="/index.html"
-        class="absolute top-4 right-4 bg-gray-200 text-gray-800 py-2 px-4 text-sm rounded-full hover:bg-gray-300 transition-all transform hover:scale-105">
-        Logout
-      </a>
+      <a href="/index.html" class="absolute top-4 right-4 bg-gray-200 text-gray-800 py-2 px-4 text-sm rounded-full hover:bg-gray-300 transition-all transform hover:scale-105">Logout</a>
 
-      <button id="show-post-form-btn"
-        class="mt-4 mb-4 bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded">
-        + Add a new post
-      </button>
+      <button id="show-post-form-btn" class="mt-4 mb-4 bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded">+ Add a new post</button>
 
       <form id="post-form" style="display: none;" class="mb-6">
         <h3 id="form-title" class="text-xl font-semibold mb-2">Add a new post</h3>
@@ -57,14 +44,12 @@
         <input type="url" id="post-media" placeholder="Picture-URL (optional)" class="border p-2 w-full mb-2" />
         <div class="flex space-x-2">
           <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save post</button>
-          <button type="button" id="cancel-edit"
-            class="bg-gray-300 text-gray-800 px-4 py-2 rounded hidden">Cancel</button>
+          <button type="button" id="cancel-edit" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hidden">Cancel</button>
         </div>
       </form>
 
-      <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
-        <img src="../images/profile.jpg" alt="Profile picture"
-          class="w-24 h-24 rounded-full border-4 border-blue-500 shadow-md transition transform hover:scale-110 hover:shadow-xl" />
+      <section class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+        <img src="../images/profile.jpg" alt="Profile picture" class="w-24 h-24 rounded-full border-4 border-blue-500 shadow-md transition transform hover:scale-110 hover:shadow-xl" />
         <div class="text-center sm:text-left">
           <h2 class="text-3xl font-bold text-gray-800">Julie Kristoffersen</h2>
           <p class="text-gray-600">Frontend Developer & Outdoor Enthusiast</p>
@@ -79,23 +64,18 @@
             </div>
           </div>
           <div class="mt-4 flex space-x-3 justify-center sm:justify-start">
-            <button
-              class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all transform hover:scale-105">
-              Follow
-            </button>
-            <button
-              class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg transition-all transform hover:scale-105">
-              Edit Profile
-            </button>
+            <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all transform hover:scale-105">Follow</button>
+            <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg transition-all transform hover:scale-105">Edit Profile</button>
           </div>
         </div>
-      </div>
-      <div class="mt-6 w-full">
+      </section>
+
+      <section class="mt-6 w-full">
         <h3 class="text-2xl font-semibold text-gray-800 mb-4">Dine innlegg</h3>
         <div id="user-posts" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></div>
-      </div>
+      </section>
     </div>
-  </div>
+  </main>
 
   <footer class="w-full bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 py-4 text-center text-white mt-auto">
     <p>© 2025 Bondify. All rights reserved.</p>

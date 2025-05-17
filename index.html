@@ -1,76 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in - Bondify</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="js/index.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Log in to Bondify to explore the latest social posts and connect with others." />
+  <title>Log in - Bondify</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="js/index.js"></script>
 </head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-<body class="bg-gray-50 flex flex-col items-center min-h-screen">
-    <header class="bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 w-full shadow-md">
-        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/profile" class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="w-16 h-16">
-                    <path d="M10,60 A50,50 0 1,1 110,60" fill="#00bcd4" />
-                    <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="20" font-weight="bold" fill="white" font-family="Verdana, sans-serif">
-                        Bondify
-                    </text>
-                </svg>
-            </a>
-            <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none" 
-                aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-                ☰
-            </button>
-            <ul class="hidden md:flex space-x-6">
-                <li><a href="/feed" class="text-white nav-link hover:text-teal-300">Feed</a></li>
-                <li><a href="/profile" class="text-white nav-link hover:text-teal-300">Profile</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-100 py-3 space-y-2 text-center transition-all duration-300" 
-            aria-hidden="true">
-            <a href="/feed" class="block py-2 text-gray-700 hover:text-teal-500">Feed</a>
-            <a href="/profile" class="block py-2 text-gray-700 hover:text-teal-500">Profile</a>
-        </div>
-    </header>
-
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mt-10">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome Back!</h1>
-        <form id="loginForm" class="space-y-6">         
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
-                    aria-labelledby="email-label">
-            </div>
-
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" name="password" minlength="8" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
-                    aria-labelledby="password-label">
-            </div>
-
-            <div>
-                <button type="submit" data-auth="login" 
-                    class="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition duration-300">
-                    Login
-                </button>
-            </div>
-
-            <p class="text-center text-sm text-gray-600">
-                Don’t have an account? 
-                <a href="./html/register.html" class="text-teal-600 hover:underline">Register here</a>.
-            </p>
-        </form>
+  <header class="bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 text-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="/" class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="w-12 h-12">
+          <path d="M10,60 A50,50 0 1,1 110,60" fill="#00bcd4" />
+          <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="20" font-weight="bold" fill="white" font-family="Verdana, sans-serif">
+            Bondify
+          </text>
+        </svg>
+      </a>
+      <nav>
+        <ul class="hidden md:flex space-x-6 text-white font-medium">
+          <li><a href="/feed" class="hover:text-teal-300">Feed</a></li>
+          <li><a href="/profile" class="hover:text-teal-300">Profile</a></li>
+        </ul>
+        <button id="menu-btn" class="md:hidden text-3xl" aria-label="Open menu">&#9776;</button>
+      </nav>
     </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white text-gray-800 text-center py-2">
+      <a href="/feed" class="block py-2 hover:text-teal-500">Feed</a>
+      <a href="/profile" class="block py-2 hover:text-teal-500">Profile</a>
+    </div>
+  </header>
 
-    <footer class="w-full bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 py-4 text-center text-white mt-auto">
-        <p>© 2025 Bondify. All rights reserved.</p>
-    </footer>
-    
+  <main class="flex-grow container mx-auto px-4 py-10">
+    <section class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold mb-6 text-center">Welcome Back</h1>
+      <form id="loginForm" class="space-y-6">
+        <div>
+          <label for="email" class="block text-sm font-medium">Email</label>
+          <input type="email" id="email" name="email" required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500" />
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium">Password</label>
+          <input type="password" id="password" name="password" minlength="8" required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500" />
+        </div>
+        <div>
+          <button type="submit" data-auth="login"
+            class="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition duration-300">
+            Login
+          </button>
+        </div>
+        <p class="text-sm text-center">
+          Don’t have an account? <a href="./html/register.html" class="text-teal-600 hover:underline">Register here</a>.
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-gradient-to-r from-teal-500 via-cyan-600 to-sky-500 text-white text-center py-4 mt-auto">
+    <p>&copy; 2025 Bondify. All rights reserved.</p>
+  </footer>
+
 </body>
-
 </html>
