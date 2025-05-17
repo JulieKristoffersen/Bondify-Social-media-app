@@ -9,7 +9,13 @@ export function save(key, value) {
 }
 
 export function load(key) {
-    return JSON.parse(localStorage.getItem(key));
+    const item = localStorage.getItem(key);
+    if (!item) return null;
+    try {
+        return JSON.parse(item);
+    } catch {
+        return item;
+    }
 }
 
 export async function getPosts() {
@@ -79,10 +85,10 @@ export async function register(
 
     const response = await fetch(API_BASE + API_AUTH + API_REGISTER, {
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
     });
 
     if (response.ok) {
@@ -109,14 +115,41 @@ export async function login(email, password) {
     });
 
     if (response.ok) {
-        const { accessToken, ...profile } = (await response.json()).data;
-        save("token", accessToken);
-        save("profile", profile);
+        try {
+            const jsonResponse = await response.json();
 
-        const apiKey = await getAPIKey();
-        save("apiKey", apiKey);
+            let accessToken, profile;
 
-        return { accessToken, apiKey, profile };
+            if (jsonResponse.accessToken) {
+                accessToken = jsonResponse.accessToken;
+                profile = jsonResponse.profile || {};
+            } else if (jsonResponse.data) {
+                accessToken = jsonResponse.data.accessToken;
+                profile = jsonResponse.data.profile || {};
+            } else {
+                throw new Error("Unexpected login response format");
+            }
+
+            save("token", accessToken);
+            save("profile", profile);
+
+            const apiKey = await getAPIKey();
+            save("apiKey", apiKey);
+
+            return { accessToken, apiKey, profile };
+        } catch (err) {
+            const tokenText = await response.text();
+            const accessToken = tokenText.trim();
+            const profile = {};
+
+            save("token", accessToken);
+            save("profile", profile);
+
+            const apiKey = await getAPIKey();
+            save("apiKey", apiKey);
+
+            return { accessToken, apiKey, profile };
+        }
     }
 
     const error = await response.json();

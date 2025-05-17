@@ -14,7 +14,7 @@ const showPostFormBtn = document.getElementById("show-post-form-btn");
 let editingPostId = null;
 
 async function fetchUserPosts() {
-  userPostsContainer.innerHTML = "Loading posts...";
+  userPostsContainer.innerHTML = "Laster innlegg...";
 
   try {
     const res = await fetch(API_BASE, {
@@ -24,7 +24,7 @@ async function fetchUserPosts() {
       }
     });
 
-    if (!res.ok) throw new Error("Error fetching posts");
+    if (!res.ok) throw new Error("Feil ved henting av innlegg");
 
     const data = await res.json();
     renderPosts(data.data);
@@ -35,7 +35,7 @@ async function fetchUserPosts() {
 
 function renderPosts(posts) {
   if (posts.length === 0) {
-    userPostsContainer.innerHTML = "<p>No posts found.</p>";
+    userPostsContainer.innerHTML = "<p>Ingen innlegg funnet.</p>";
     return;
   }
 
@@ -45,14 +45,14 @@ function renderPosts(posts) {
         class="w-full h-40 object-cover transition-all transform hover:scale-105" />
       <div class="p-4">
         <h4 class="font-semibold text-lg">${post.title}</h4>
-        <p class="text-gray-600 text-sm mt-1">${post.body || ''}</p>
+        <p class="text-gray-600 text-sm mt-1">${post.body}</p>
         <div class="mt-4 flex justify-between items-center text-gray-500 text-sm">
           <div class="flex items-center space-x-2">
             <button onclick="editPost('${post.id}')" class="text-gray-600 hover:text-gray-800 text-sm">
-              <i class="fas fa-edit"></i> Edit
+              <i class="fas fa-edit"></i> Rediger
             </button>
             <button onclick="deletePost('${post.id}')" class="text-red-600 hover:text-red-800 text-sm">
-              <i class="fas fa-trash"></i> Delete
+              <i class="fas fa-trash"></i> Slett
             </button>
           </div>
         </div>
@@ -69,15 +69,15 @@ async function editPost(id) {
         "X-Noroff-API-Key": apiKey
       }
     });
-    if (!res.ok) throw new Error("Could not fetch the post");
+    if (!res.ok) throw new Error("Kunne ikke hente innlegget");
 
     const data = await res.json();
     const post = data.data;
 
     editingPostId = id;
-    formTitle.textContent = "Edit Post";
+    formTitle.textContent = "Rediger innlegg";
     titleInput.value = post.title;
-    bodyInput.value = post.body || "";
+    bodyInput.value = post.body;
     mediaInput.value = post.media?.url || "";
     cancelBtn.style.display = "inline-block";
     form.style.display = "block";
@@ -87,7 +87,7 @@ async function editPost(id) {
 }
 
 async function deletePost(id) {
-  if (!confirm("Are you sure you want to delete this post?")) return;
+  if (!confirm("Er du sikker på at du vil slette innlegget?")) return;
 
   try {
     const res = await fetch(`${API_BASE}/${id}`, {
@@ -98,7 +98,7 @@ async function deletePost(id) {
       }
     });
 
-    if (!res.ok) throw new Error("Could not delete the post");
+    if (!res.ok) throw new Error("Kunne ikke slette innlegget");
 
     fetchUserPosts();
   } catch (error) {
@@ -108,7 +108,7 @@ async function deletePost(id) {
 
 cancelBtn.onclick = () => {
   editingPostId = null;
-  formTitle.textContent = "Create New Post";
+  formTitle.textContent = "Lag nytt innlegg";
   form.reset();
   cancelBtn.style.display = "none";
   form.style.display = "none";
@@ -121,15 +121,15 @@ form.onsubmit = async (e) => {
   const body = bodyInput.value.trim();
   const mediaUrl = mediaInput.value.trim();
 
-  if (!title) {
-    alert("Title cannot be empty.");
+  if (!title || !body) {
+    alert("Tittel og innhold kan ikke være tomt.");
     return;
   }
 
   const postData = {
     title,
-    body: body || undefined, 
-    media: mediaUrl ? { url: mediaUrl, alt: "Image" } : undefined
+    body,
+    media: mediaUrl ? { url: mediaUrl, alt: "Bilde" } : undefined
   };
 
   try {
@@ -158,11 +158,11 @@ form.onsubmit = async (e) => {
 
     if (!res.ok) {
       const err = await res.json();
-      throw new Error(err.errors?.[0]?.message || "Something went wrong");
+      throw new Error(err.errors?.[0]?.message || "Noe gikk galt");
     }
 
     editingPostId = null;
-    formTitle.textContent = "Create New Post";
+    formTitle.textContent = "Lag nytt innlegg";
     form.reset();
     cancelBtn.style.display = "none";
     form.style.display = "none";
@@ -178,5 +178,6 @@ showPostFormBtn?.addEventListener("click", () => {
 
 fetchUserPosts();
 
+// Eksponer funksjoner for HTML-knapper
 window.editPost = editPost;
 window.deletePost = deletePost;
