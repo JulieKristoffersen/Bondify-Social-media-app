@@ -40,7 +40,9 @@ export async function onAuth(event) {
 
         localStorage.setItem("token", loginData.accessToken);
         localStorage.setItem("apiKey", loginData.apiKey);
-        localStorage.setItem("userName", loginData.profile.name);
+
+  
+        localStorage.setItem("userProfile", JSON.stringify(loginData.profile));
 
         window.location.href = "../profile/index.html";
     } catch (error) {

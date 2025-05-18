@@ -19,7 +19,6 @@ const noResults = document.getElementById("noResults");
 const logoutBtn = document.getElementById("logout-btn");
 
 let editingPostId = null;
-// Change from "loggedInUserId" to loggedInUserEmail, to match filtering by email
 let loggedInUserEmail = null;
 
 async function fetchProfile() {
@@ -39,15 +38,12 @@ async function fetchProfile() {
     const profile = json.data;
     if (!profile) throw new Error("Profile data is empty");
 
-    // Use email for filtering posts, fallback to name if email missing (usually email is present)
     loggedInUserEmail = profile.email || profile.name;
 
     usernameElement.textContent = profile.name || "User";
     emailElement.textContent = profile.email || "";
     profileImg.src = profile.avatar?.url || "../images/profile.png";
     profileImg.alt = profile.avatar?.alt || "Profile Image";
-
-    // Fetch user posts filtering by email
     const userPosts = await fetchUserPosts(loggedInUserEmail);
 
     if (Array.isArray(userPosts) && userPosts.length > 0) {
@@ -65,7 +61,6 @@ async function fetchProfile() {
 
 async function fetchUserPosts(userEmail) {
   try {
-    // Filter posts by author=email
     const res = await fetch(`${API_BASE}?author=${encodeURIComponent(userEmail)}`, {
       headers: {
         Authorization: `Bearer ${token}`,

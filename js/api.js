@@ -73,8 +73,6 @@ export async function register(
     email,
     password,
     bio = "",
-    avatarUrl = "",
-    avatarAlt = "",
     bannerUrl = "",
     bannerAlt = "",
     venueManager = false
