@@ -42,7 +42,7 @@ export async function onAuth(event) {
         localStorage.setItem("apiKey", loginData.apiKey);
         localStorage.setItem("userName", loginData.profile.name);
 
-        window.location.href = "../feed/index.html";
+        window.location.href = "../profile/index.html";
     } catch (error) {
         console.error("Authentication failed:", error.message);
         if (errorMsg) {

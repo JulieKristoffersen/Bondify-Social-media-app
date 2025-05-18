@@ -45,7 +45,7 @@ function renderPosts(posts) {
   postContainer.innerHTML = "";
 
   if (!posts || posts.length === 0) {
-    postContainer.innerHTML = `<p class="text-center text-gray-500">Ingen innlegg funnet.</p>`;
+    postContainer.innerHTML = `<p class="text-center text-gray-500">No posts.</p>`;
     return;
   }
 

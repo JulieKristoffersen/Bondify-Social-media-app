@@ -22,6 +22,9 @@ export async function getPosts() {
     const token = load("token");
     const apiKey = load("apiKey");
 
+    console.log("getPosts token:", token);
+    console.log("getPosts apiKey:", apiKey);
+
     if (!token || !apiKey) {
         throw new Error("Missing authentication token or API key");
     }
