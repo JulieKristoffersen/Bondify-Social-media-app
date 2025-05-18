@@ -71,7 +71,7 @@ function renderPosts(posts) {
         <span><i class="fas fa-heart text-red-500"></i> ${reactionsCount}</span>
         <span><i class="fas fa-comment"></i> ${commentsCount}</span>
       </div>
-      <a href="post.html?id=${post.id}" class="text-blue-600 hover:underline mt-2 inline-block">Se mer</a>
+      <a href="../html/single-post.html?id=${post.id}" class="text-blue-600 hover:underline mt-2 inline-block">Check post</a>
     `;
 
     postContainer.appendChild(postDiv);

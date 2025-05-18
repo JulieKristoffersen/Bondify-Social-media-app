@@ -178,6 +178,5 @@ showPostFormBtn?.addEventListener("click", () => {
 
 fetchUserPosts();
 
-// Eksponer funksjoner for HTML-knapper
 window.editPost = editPost;
 window.deletePost = deletePost;
