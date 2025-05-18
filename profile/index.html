@@ -64,18 +64,53 @@
 
       <section class="flex-1 flex flex-col">
         <button id="show-post-form-btn" class="mb-4 bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-4 rounded self-start">+ Add a new post</button>
+<form
+  id="post-form"
+  class="mb-6 hidden flex flex-col gap-4 bg-white border border-teal-300 rounded-lg shadow-md p-6 max-w-xl w-full mx-auto transition-all duration-300 ease-in-out"
+>
+  <h3 id="form-title" class="text-xl font-semibold text-teal-600 mb-4 text-center">
+    Add a new post
+  </h3>
 
-        <form id="post-form" class="mb-6 hidden flex flex-col gap-3">
-          <h3 id="form-title" class="text-xl font-semibold">Add a new post</h3>
-          <input type="text" id="post-title" placeholder="Title" required class="border border-gray-300 p-2 rounded" />
-          <textarea id="post-body" placeholder="Text" required class="border border-gray-300 p-2 rounded"></textarea>
-          <input type="url" id="post-media" placeholder="Picture URL (optional)" class="border border-gray-300 p-2 rounded" />
-          <div class="flex space-x-2">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Save post</button>
-            <button type="button" id="cancel-edit" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hidden hover:bg-gray-400">Cancel</button>
-          </div>
-        </form>
+  <input
+    type="text"
+    id="post-title"
+    placeholder="Title"
+    required
+    class="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-500 transition"
+  />
 
+  <textarea
+    id="post-body"
+    placeholder="Text"
+    required
+    rows="5"
+    class="border border-gray-300 rounded-md p-3 w-full resize-none focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-500 transition"
+  ></textarea>
+
+  <input
+    type="url"
+    id="post-media"
+    placeholder="Picture URL (optional)"
+    class="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-500 transition"
+  />
+<div class="flex justify-center space-x-4 mt-6">
+  <button
+    type="submit"
+    class="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-2 rounded-md shadow-sm transition"
+  >
+    Save post
+  </button>
+  <button
+    type="button"
+    id="cancel-edit"
+    class="bg-gray-200 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 transition hidden"
+  >
+    Cancel
+  </button>
+</div>
+
+</form>
         <section>
           <h3 class="text-2xl font-semibold text-gray-800 mb-4">Your posts</h3>
           <div id="user-posts" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></div>
